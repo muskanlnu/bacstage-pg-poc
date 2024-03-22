@@ -1,0 +1,27 @@
+name: PostgreSQL for GitHub Actions
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/postgresql@v1
+        with:
+          server-name: backstage-poc-db
+          connection-string: ${{ secrets.AZURE_POSTGRESQL_CONNECTION_STRING }}
+          plsql-file: './data.sql'
+
+      # Azure logout
+      - name: logout
+        run: |
+           az logout

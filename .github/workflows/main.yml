@@ -1,4 +1,4 @@
-name: PostgreSQL for GitHub Actions
+name: PostgreSQL for Backstage POC 
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.2
       - uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CREDENTIALS }}
